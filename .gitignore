@@ -26,3 +26,4 @@ hs_err_pid*
 # 个人忽略
 /.idea/
 SpringMVCTest01/SpringMVCTest01.iml
+/out/
