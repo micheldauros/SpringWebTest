@@ -27,3 +27,4 @@ hs_err_pid*
 /.idea/
 SpringMVCTest01/SpringMVCTest01.iml
 /out/
+/SpringMVCTest01/target/
