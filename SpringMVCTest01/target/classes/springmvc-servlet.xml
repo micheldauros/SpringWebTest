@@ -16,6 +16,7 @@
     <!--处理器适配器-->
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
     <!--视图解析器：模板引擎Thymeleaf Freemarker...-->
+    <!--这是jsp视图解析器，基本没什么用 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/ajax/"/>
         <property name="suffix" value=".html"/>
