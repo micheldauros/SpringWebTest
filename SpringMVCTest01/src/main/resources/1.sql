@@ -1,3 +1,4 @@
+use sql_training;
 SELECT
     CASE occupation
         WHEN 1 THEN
