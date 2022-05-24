@@ -16,7 +16,7 @@ SELECT
         END AS `职业`,
     CAST(
             CONCAT(
-                    '男:',
+                    '男:',obs
                     COUNT(IF(sex = 1, 1, NULL)),
                     ', ⼥:',
                     COUNT(IF(sex = 2, 1, NULL))
