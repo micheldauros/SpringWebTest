@@ -5,15 +5,16 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class Customer {
-    private Integer customerId;
-    private Integer storeId;
+public class Staff {
+    private Integer staffId;
     private String firstName;
     private String lastName;
-    private String email;
     private Integer addressId;
+    private Byte[] picture;
+    private String email;
+    private Integer storeId;
     private Integer active;
-    private LocalDateTime createDate;
+    private String userName;
+    private String password;
     private LocalDateTime lastUpdate;
-
 }
