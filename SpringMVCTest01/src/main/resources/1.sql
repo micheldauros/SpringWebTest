@@ -33,3 +33,7 @@ delete
 from country
 where country='中国';
 insert into country(country) values('中国');
+
+
+select film.film_id, film.title,film.description,film.length, i.inventory_id,i.store_id, fc.category_id,fa.actor_id
+from (((film left join inventory i on film.film_id = i.film_id) left join film_category fc on film.film_id=fc.film_id) left join film_actor fa on film.film_id=fa.film_id)

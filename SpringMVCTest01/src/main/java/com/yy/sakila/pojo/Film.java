@@ -1,13 +1,17 @@
 package com.yy.sakila.pojo;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Data
 public class Film {
     private Integer filmId;
     private String title;
     private String description;
-    private String releaseYear;
+    private LocalDate releaseYear;
     private Integer languageId;
     private Integer originalLanguageId;
     private Integer rentalDuration;
