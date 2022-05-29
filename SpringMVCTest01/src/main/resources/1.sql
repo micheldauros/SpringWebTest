@@ -43,3 +43,6 @@ select * from JDBCTestVO;
 select group_concat(COLUMN_NAME) from   information_schema.COLUMNS where TABLE_NAME='JDBCTestVO' and TABLE_SCHEMA='sakila';
 show columns from JDBCTestVO;
 select * from JDBCTestVO;
+
+
+select sakila.film.film_id,sakila.film.replacement_cost, sakila.film.title,sakila.film.description,sakila.film.length, i.inventory_id,i.store_id, fc.category_id,fa.actor_id from (((sakila.film left join sakila.inventory i on film.film_id = i.film_id) left join sakila.film_category fc on film.film_id=fc.film_id) left join sakila.film_actor fa on film.film_id=fa.film_id)
