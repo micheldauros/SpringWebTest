@@ -67,7 +67,7 @@ public class JDBCTest {
         ArrayList<JDBCTestEmbeddedSimpleVO> jdbcTestEmbeddedSimpleVOS=new ArrayList<>();
         Connection connection = MysqlInit.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("select group_concat(sakila.film_actor.actor_id) actorList,sakila.film_actor.film_id filmId from sakila.film_actor group by sakila.film_actor.film_id;");
-        PreparedStatement preparedStatementSub=connection.prepareStatement("select sakila.actor.actor_id,sakila.actor.first_name,sakila.actor.last_name,sakila.actor.last_update where sakila.actor.actor_id=(?)");
+        PreparedStatement preparedStatementSub=connection.prepareStatement("select sakila.actor.actor_id,sakila.actor.first_name,sakila.actor.last_name,sakila.actor.last_update from sakila.actor where sakila.actor.actor_id=(?)");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
             ArrayList<Actor> actors=new ArrayList<Actor>();
@@ -83,12 +83,12 @@ public class JDBCTest {
                     actor.setActor_id(resultSetSub.getInt("actor_id"));
                     actor.setFirstName(resultSetSub.getString("first_name"));
                     actor.setLastName(resultSetSub.getString("last_name"));
-                    actor.setLastUpdate(resultSetSub.getDate("last_update").toInstant().atZone(zoneId).toLocalDateTime());
+                    actor.setLastUpdate(resultSetSub.getTimestamp("last_update").toLocalDateTime());
                     actors.add(actor);
                 }
             }
             jdbcTestEmbeddedSimpleVO.setActors(actors);
-            jdbcTestEmbeddedSimpleVO.setFilmId(resultSet.getInt("film_id"));
+            jdbcTestEmbeddedSimpleVO.setFilmId(resultSet.getInt("filmId"));
             jdbcTestEmbeddedSimpleVOS.add(jdbcTestEmbeddedSimpleVO);
 
 
@@ -97,5 +97,6 @@ public class JDBCTest {
         resultSet.close();
         preparedStatement.close();
         connection.close();
+        System.out.println(jdbcTestEmbeddedSimpleVOS.get(1));
     }
 }
