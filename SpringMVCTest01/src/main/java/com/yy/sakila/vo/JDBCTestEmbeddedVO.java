@@ -17,7 +17,7 @@ public class JDBCTestEmbeddedVO {
     private Integer inventoryId;
     private Integer storeId;
     private Integer categoryId;
-    private ArrayList<FilmActor> filmActors;
+    private ArrayList<Actor> actors;
 
 
 }
