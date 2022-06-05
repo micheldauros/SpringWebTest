@@ -16,7 +16,7 @@ SELECT
         END AS `职业`,
     CAST(
             CONCAT(
-                    '男:',obs
+                    '男:',
                     COUNT(IF(sex = 1, 1, NULL)),
                     ', ⼥:',
                     COUNT(IF(sex = 2, 1, NULL))
@@ -37,7 +37,7 @@ insert into country(country) values('中国');
 use sakila;
 CREATE TEMPORARY table JDBCTestVO
 select film.film_id, film.title,film.description,film.length,film.replacement_cost, i.inventory_id,i.store_id, fc.category_id,fa.actor_id
-from (((film left join inventory i on film.film_id = i.film_id) left join film_category fc on film.film_id=fc.film_id) left join film_actor fa on film.film_id=fa.film_id)
+from (((film left join inventory i on film.film_id = i.film_id) left join film_category fc on film.film_id=fc.film_id) left join film_actor fa on film.film_id=fa.film_id);
 
 select * from JDBCTestVO;
 select group_concat(COLUMN_NAME) from   information_schema.COLUMNS where TABLE_NAME='JDBCTestVO' and TABLE_SCHEMA='sakila';
@@ -45,10 +45,17 @@ show columns from JDBCTestVO;
 select * from JDBCTestVO;
 
 
-select sakila.film.film_id,sakila.film.replacement_cost, sakila.film.title,sakila.film.description,sakila.film.length, i.inventory_id,i.store_id, fc.category_id,fa.actor_id from (((sakila.film left join sakila.inventory i on film.film_id = i.film_id) left join sakila.film_category fc on film.film_id=fc.film_id) left join sakila.film_actor fa on film.film_id=fa.film_id)
+select sakila.film.film_id,sakila.film.replacement_cost, sakila.film.title,sakila.film.description,sakila.film.length, i.inventory_id,i.store_id, fc.category_id,fa.actor_id from (((sakila.film left join sakila.inventory i on film.film_id = i.film_id) left join sakila.film_category fc on film.film_id=fc.film_id) left join sakila.film_actor fa on film.film_id=fa.film_id);
 
 select sakila.film.film_id,sakila.film.replacement_cost, sakila.film.title,sakila.film.description,sakila.film.length, i.inventory_id,i.store_id, fc.category_id,fa.actor_id from (((sakila.film left join sakila.inventory i on film.film_id = i.film_id) left join sakila.film_category fc on film.film_id=fc.film_id) left join sakila.film_actor fa on film.film_id=fa.film_id) group by sakila.film.film_id, sakila.film.replacement_cost, sakila.film.title, sakila.film.description, sakila.film.length, i.inventory_id, i.store_id, fc.category_id, fa.actor_id with rollup;
 
 select group_concat(sakila.film_actor.actor_id) actorList,sakila.film_actor.film_id filmId from sakila.film_actor group by sakila.film_actor.film_id;
-select sakila.actor.actor_id actorId,sakila.actor.last_name,sakila.actor.first_name where sakila.actor.actor_id
+
+
+
+select sakila.actor.actor_id actorId,sakila.actor.last_name,sakila.actor.first_name where sakila.actor.actor_id=(?);
 select group_concat(sakila.film_actor.actor_id) actorList,sakila.film_actor.film_id filmId from sakila.film_actor group by sakila.film_actor.film_id;
+
+#代替上面的查询，两张表都只遍历一次
+use sakila;
+select sakila.actor.actor_id,sakila.actor.last_name,sakila.actor.first_name,sakila.actor.last_update,sakila.film_actor.film_id from sakila.film_actor inner join sakila.actor  on film_actor.actor_id = actor.actor_id order by sakila.film_actor.film_id;
