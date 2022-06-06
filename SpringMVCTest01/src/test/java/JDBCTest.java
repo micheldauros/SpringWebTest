@@ -1,8 +1,11 @@
+import com.yy.sakila.mapper.ActorMapper;
 import com.yy.sakila.pojo.Actor;
 import com.yy.sakila.vo.JDBCTestEmbeddedSimpleVO;
 import com.yy.sakila.vo.JDBCTestEmbeddedVO;
 import com.yy.sakila.vo.JDBCTestVO;
+import com.yy.utils.MybatisUtil;
 import com.yy.utils.MysqlInit;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.sql.*;
@@ -63,7 +66,7 @@ public class JDBCTest {
 //    }
 
     @Test
-    //此测试业务上不可行，新建对象太多，可能会严重降低性能
+    //此测试在业务上通常不可行，因为新建对象太多，可能会严重降低性能
     public void test03() throws SQLException {
         ZoneId zoneId= ZoneId.systemDefault();
         ArrayList<JDBCTestEmbeddedSimpleVO> jdbcTestEmbeddedSimpleVOS=new ArrayList<>();
@@ -104,7 +107,7 @@ public class JDBCTest {
         System.out.println(jdbcTestEmbeddedSimpleVOS.get(1));
     }
     @Test
-    //此测试业务上不可行，新建对象太多，可能会严重降低性能
+    //此测试在业务上通常不可行，因为新建对象太多，可能会严重降低性能
     public void test04() throws SQLException {
         ZoneId zoneId= ZoneId.systemDefault();
         ArrayList<JDBCTestEmbeddedSimpleVO> jdbcTestEmbeddedSimpleVOS=new ArrayList<>();
@@ -115,7 +118,16 @@ public class JDBCTest {
             JDBCTestEmbeddedSimpleVO jdbcTestEmbeddedSimpleVO=new JDBCTestEmbeddedSimpleVO();
             jdbcTestEmbeddedSimpleVO.setFilmId(resultSet.getInt("film_id"));
             //# TODO
-            resultSet.
+            //resultSet.
         }
+    }
+    @Test
+    public void test05(){
+        SqlSession sqlSession= MybatisUtil.getSqlSession();
+        ActorMapper actorMapper=sqlSession.getMapper(ActorMapper.class);
+        for(Actor actor:actorMapper.selectAll()){
+            System.out.println(actor);
+        }
+        sqlSession.close();
     }
 }
