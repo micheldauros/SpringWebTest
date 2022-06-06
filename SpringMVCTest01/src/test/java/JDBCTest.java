@@ -1,4 +1,5 @@
 import com.yy.sakila.mapper.ActorMapper;
+import com.yy.sakila.mapper.UnspecificMapper;
 import com.yy.sakila.pojo.Actor;
 import com.yy.sakila.vo.JDBCTestEmbeddedSimpleVO;
 import com.yy.sakila.vo.JDBCTestEmbeddedVO;
@@ -129,5 +130,13 @@ public class JDBCTest {
             System.out.println(actor);
         }
         sqlSession.close();
+    }
+
+    @Test
+    public void test06(){
+        SqlSession sqlSession=MybatisUtil.getSqlSession();
+        UnspecificMapper unspecificMapper=sqlSession.getMapper(UnspecificMapper.class);
+        JDBCTestEmbeddedSimpleVO jdbcTestEmbeddedSimpleVO=unspecificMapper.getFilmActor(3);
+        System.out.println(jdbcTestEmbeddedSimpleVO);
     }
 }

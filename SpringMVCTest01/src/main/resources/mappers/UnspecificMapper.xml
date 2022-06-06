@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yy.sakila.mapper.UnspecificMapper">
+    <resultMap id="film_actor" type="com.yy.sakila.vo.JDBCTestEmbeddedSimpleVO">
+        <id property="filmId" column="film_id"/>
+        <collection property="actors" ofType="com.yy.sakila.pojo.Actor">
+            <id property="actor_id" column="actor_id"/>
+            <result property="firstName" column="first_name"/>
+            <result property="lastName" column="last_name"/>
+            <result property="lastUpdate" column="last_update"/>
+        </collection>
+    </resultMap>
+    <select id="getFilmActor" resultMap="film_actor">
+        select sakila.film_actor.film_id,sakila.actor.actor_id,sakila.actor.first_name,sakila.actor.last_name,sakila.actor.last_update from sakila.film_actor left join sakila.actor on sakila.actor.actor_id = film_actor.actor_id where sakila.film_actor.film_id=#{id}
+    </select>
+</mapper>

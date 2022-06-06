@@ -1,6 +1,5 @@
 package com.yy.utils;
 
-import com.yy.sakila.mapper.ActorMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

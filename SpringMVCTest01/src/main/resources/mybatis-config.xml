@@ -13,6 +13,7 @@
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
+                <!--# TODO 这里为何不能用井号占位符？？？                -->
                 <property name="driver" value="${driver}"/>
                 <property name="url" value="${url}"/>
                 <property name="username" value="${username}"/>
@@ -22,6 +23,7 @@
     </environments>
 
     <mappers>
-        <mapper resource="mappers/sakilaMapper.xml"/>
+        <mapper resource="mappers/actorMapper.xml"/>
+        <mapper resource="mappers/UnspecificMapper.xml"/>
     </mappers>
 </configuration>
