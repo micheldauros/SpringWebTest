@@ -11,6 +11,7 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd"
 >
     <mvc:default-servlet-handler/>
+    <context:component-scan base-package="com.yy.controller"/>
     <!--处理器映射器-->
     <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
     <!--处理器适配器-->
