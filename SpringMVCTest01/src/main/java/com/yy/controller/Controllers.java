@@ -8,6 +8,6 @@ public class Controllers {
     @RequestMapping(value = "/controller01")
     public String controller01(){
         System.out.println("controller 01 is accessed");
-        return "ajax/hello";
+        return "forward:/hello";
     }
 }

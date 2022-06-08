@@ -139,4 +139,9 @@ public class JDBCTest {
         JDBCTestEmbeddedSimpleVO jdbcTestEmbeddedSimpleVO=unspecificMapper.getFilmActor(3);
         System.out.println(jdbcTestEmbeddedSimpleVO);
     }
+
+    @Test
+    public void test07(){
+        System.out.println("这是中文编码");
+    }
 }
