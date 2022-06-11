@@ -13,6 +13,7 @@ public class RestControllers {
     public String Rest01(@PathVariable("a") String a, @PathVariable("b") String  b, Model model){
         String  res=a+b;
         model.addAttribute("msg",res);
-        return "forward:/Ajax/index";
+        System.out.println("Rest01 is accessed");
+        return "../../Ajax/index.html";
     }
 }
