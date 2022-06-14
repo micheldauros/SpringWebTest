@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button type="button" id="btn">现实内容</button>
+<p id="message"></p>
+
+<script src="../../jslib/jquery-3.6.0.min.js"></script>
+<script>
+    $("#btn").click(function () {
+        $.ajax({
+            url:"../hehe/haha",
+            type:"get",   //请求方法
+            data:{},   //要发送的数据,相当于表单提交的数据，json形式。
+            dataType:"text",   //期待返回的数据类型，也可以理解为请求的数据类型
+            error:function () {  //发生错误时的处理
+                console.log("Error!!!")
+            },
+            success:function (data) {  //成功时的处理。参数表示返回的数据
+                $("#message").text(data.message);
+            }
+        })
+    });
+</script>
+</body>
+</html>
