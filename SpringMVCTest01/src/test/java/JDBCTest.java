@@ -8,6 +8,7 @@ import com.yy.utils.MybatisUtil;
 import com.yy.utils.MysqlInit;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
+import redis.clients.jedis.Jedis;
 
 import java.sql.*;
 import java.time.ZoneId;
@@ -143,5 +144,12 @@ public class JDBCTest {
     @Test
     public void test07(){
         System.out.println("这是中文编码");
+    }
+
+    @Test
+    public void test08(){
+        Jedis jedis=new Jedis("127.0.0.1",6379);
+        System.out.println(jedis.ping());
+
     }
 }
