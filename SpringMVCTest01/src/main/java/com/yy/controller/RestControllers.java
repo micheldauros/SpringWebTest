@@ -2,10 +2,7 @@ package com.yy.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RestControllers {
@@ -16,7 +13,7 @@ public class RestControllers {
         System.out.println("Rest01 is accessed "+res);
         return "link03";
     }
-    @RequestMapping("/Rest02/{a}/{b")
+    @RequestMapping("/Rest02/{a}/{b}")
     @ResponseBody
     public String rest02(@PathVariable("a") String a, @PathVariable("b") String  b){
         return null;
@@ -25,6 +22,13 @@ public class RestControllers {
     @RequestMapping("/favicon.ico")
     public String getFavicon(){
         return "redirect:/favicon.ico";
+    }
+
+    @RequestMapping("/Rest03")
+    @ResponseBody
+    public String rest03(@RequestParam("no")String no,@RequestParam("name")String name){
+        System.out.println(no+" "+name);
+        return no+" "+name;
     }
 
 }
