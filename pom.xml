@@ -12,6 +12,14 @@
         <module>SpringMVCTest01</module>
         <module>StaticWebTest</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>moe.pine</groupId>
+            <artifactId>nonnull</artifactId>
+            <version>0.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 
 </project>
