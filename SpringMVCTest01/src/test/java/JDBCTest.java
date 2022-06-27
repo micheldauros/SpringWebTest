@@ -9,6 +9,7 @@ import com.yy.utils.MysqlInit;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Transaction;
 
 import java.sql.*;
 import java.time.ZoneId;
@@ -150,7 +151,9 @@ public class JDBCTest {
     public void test08(){
         Jedis jedis=new Jedis("127.0.0.1",6379);
         System.out.println(jedis.ping());
-        System.out.println(jedis.get("name"));
+        System.out.println(jedis.get("fields *"));
+        final Transaction multi = jedis.multi();
+        jedis.close();
 
     }
 }
