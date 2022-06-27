@@ -11,8 +11,7 @@ public class Actor {
     private Integer actor_id;
     private String firstName;
     private String lastName;
-    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @NotNull(message = "lastUpdate是空")
-
     private LocalDateTime lastUpdate;
 }
