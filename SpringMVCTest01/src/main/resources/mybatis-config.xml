@@ -25,5 +25,6 @@
     <mappers>
         <mapper resource="mappers/actorMapper.xml"/>
         <mapper resource="mappers/UnspecificMapper.xml"/>
+        <mapper resource="com/yy/sakila/mapper/addressMapper.xml"/>
     </mappers>
 </configuration>

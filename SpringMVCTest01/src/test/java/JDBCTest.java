@@ -1,4 +1,5 @@
 import com.yy.sakila.mapper.ActorMapper;
+import com.yy.sakila.mapper.AddressMapper;
 import com.yy.sakila.mapper.UnspecificMapper;
 import com.yy.sakila.pojo.Actor;
 import com.yy.sakila.vo.JDBCTestEmbeddedSimpleVO;
@@ -155,5 +156,13 @@ public class JDBCTest {
         final Transaction multi = jedis.multi();
         jedis.close();
 
+    }
+
+    @Test
+    public void test09(){
+        SqlSession sqlSession=MybatisUtil.getSqlSession();
+        AddressMapper mapper = sqlSession.getMapper(AddressMapper.class);
+        String location = mapper.getLocationById(3);
+        System.out.println(location);
     }
 }
