@@ -2,6 +2,7 @@ package com.yy.springboottest01.pojo;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
@@ -20,4 +21,5 @@ public class Actor {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @NotNull(message = "lastUpdate是空")
     private LocalDateTime lastUpdate;
+
 }

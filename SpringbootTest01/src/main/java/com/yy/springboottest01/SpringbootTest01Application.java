@@ -17,8 +17,7 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
 @SpringBootApplication
 public class SpringbootTest01Application {
-    @Autowired
-    private Actor actor;
+
     public static void main(String[] args) {
 
         SpringApplication.run(SpringbootTest01Application.class,args);
