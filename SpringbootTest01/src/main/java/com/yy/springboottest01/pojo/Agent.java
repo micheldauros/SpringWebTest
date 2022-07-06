@@ -17,5 +17,9 @@ public class Agent {
     public Agent(Actor actor){
         this.lastUpdate=actor.getLastUpdate();
     }
+    public void setActor(Actor actor){
+        this.actor=actor;
+        System.out.println("set actor方法调用");
+    }
 
 }

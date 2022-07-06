@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 
-@Component
+//@Component
 public class BeanProcess01 implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
