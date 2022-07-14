@@ -1,4 +1,5 @@
 import com.yy.mapper.UserMapper;
+import com.yy.mapper.UserMapperImpl;
 import com.yy.pojo.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -31,7 +32,7 @@ public class MybatisTest {
     @Test
     public void test02(){
          ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-dao.xml");
-        UserMapper userMapperImpl = applicationContext.getBean("UserMapperImpl", UserMapper.class);
+        UserMapper userMapperImpl = applicationContext.getBean("userMapperImpl", UserMapperImpl.class);
         List<User> userList = userMapperImpl.selectUser();
         for(User user:userList){
             System.out.println(user);
