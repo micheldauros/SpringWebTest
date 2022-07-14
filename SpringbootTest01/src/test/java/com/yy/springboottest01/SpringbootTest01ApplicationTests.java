@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Lazy;
 
+import java.io.Serializable;
+
 @SpringBootTest
-class SpringbootTest01ApplicationTests {
+class SpringbootTest01ApplicationTests implements Serializable {
+    private final static long serialVersionUID=1L;
     @Autowired
     public Actor actor;
     @Autowired
