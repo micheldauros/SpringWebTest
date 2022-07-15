@@ -32,10 +32,20 @@ public class MybatisTest {
     @Test
     public void test02(){
          ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-dao.xml");
-        UserMapper userMapperImpl = applicationContext.getBean("userMapperImpl", UserMapperImpl.class);
+        UserMapper userMapperImpl = applicationContext.getBean("userMapperImpl", UserMapper.class);
         List<User> userList = userMapperImpl.selectUser();
         for(User user:userList){
             System.out.println(user);
         }
+    }
+
+    @Test
+    public void test03(){
+        User user=new User();
+        user.setName("Tommy");
+        user.setId(10);
+        user.setPassword("87654321");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-dao.xml");
+        applicationContext.getBean("userMapperImpl",UserMapper.class).addUser(user);
     }
 }

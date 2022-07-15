@@ -11,7 +11,7 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd"
 >
     <context:annotation-config/>
-    <context:component-scan base-package="mapper"/>
+    <context:component-scan base-package="com.yy.mapper"/>
     <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/mybatis_test?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC&amp;rewriteBatchedStatements=true"/>
@@ -20,7 +20,7 @@
     </bean>
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
-<!--        <property name="configuration" value="classpath:mybatis-config.xml"/>-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:com/yy/mapper/*.xml"/>
     </bean>
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

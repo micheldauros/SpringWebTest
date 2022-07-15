@@ -10,4 +10,7 @@
     <select id="selectUser" resultMap="user">
         select * from mybatis_test.user;
     </select>
+    <insert id="addUser">
+        insert into mybatis_test.user (uid, name, password) VALUES (#{id},#{name},#{password})
+    </insert>
 </mapper>
