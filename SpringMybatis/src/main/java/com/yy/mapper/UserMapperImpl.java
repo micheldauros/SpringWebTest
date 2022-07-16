@@ -19,12 +19,23 @@ public class UserMapperImpl implements UserMapper{
     }
 
     @Override
-    public void addUser(User user) {
-        sqlSessionTemplate.getMapper(UserMapper.class).addUser(user);
+    public int addUser(User user) {
+        int a=1/0;
+        return sqlSessionTemplate.getMapper(UserMapper.class).addUser(user);
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public int deleteUser(Integer id) {
+        return sqlSessionTemplate.getMapper(UserMapper.class).deleteUser(id);
+    }
 
+    @Override
+    public int updateUser() {
+        User user=new User();
+        user.setName("Tommy");
+        user.setId(10);
+        user.setPassword("87654321");
+        sqlSessionTemplate.getMapper(UserMapper.class).addUser(user);
+        return sqlSessionTemplate.getMapper(UserMapper.class).deleteUser(10);
     }
 }

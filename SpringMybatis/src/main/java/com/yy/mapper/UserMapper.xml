@@ -13,4 +13,7 @@
     <insert id="addUser">
         insert into mybatis_test.user (uid, name, password) VALUES (#{id},#{name},#{password})
     </insert>
+    <delete id="deleteUser">
+        deletes from mybatis_test.user where uid =#{id}
+    </delete>
 </mapper>
