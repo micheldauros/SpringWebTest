@@ -5,10 +5,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Component
+@Transactional
+@EnableAspectJAutoProxy(exposeProxy = true)
 public class UserMapperImpl implements UserMapper{
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
@@ -20,7 +24,6 @@ public class UserMapperImpl implements UserMapper{
 
     @Override
     public int addUser(User user) {
-        int a=1/0;
         return sqlSessionTemplate.getMapper(UserMapper.class).addUser(user);
     }
 
