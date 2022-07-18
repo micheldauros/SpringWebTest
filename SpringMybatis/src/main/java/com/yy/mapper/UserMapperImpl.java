@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Component
-@Transactional
-@EnableAspectJAutoProxy(exposeProxy = true)
 public class UserMapperImpl implements UserMapper{
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
