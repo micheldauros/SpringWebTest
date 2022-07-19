@@ -1,69 +1,72 @@
 package com.yy.springboottest01;
 
-import com.yy.springboottest01.pojo.Actor;
-import com.yy.springboottest01.pojo.Receiver;
+import com.yy.springboottest01.pojo.Customer;
+import com.yy.springboottest01.service.DataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.listener.PatternTopic;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+//import org.springframework.jdbc.core.JdbcTemplate;
+//import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+//import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import com.mysql.cj.jdbc.Driver;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 
 @SpringBootApplication
 public class SpringbootTest01Application {
 
-    public static void main(String[] args) {
+    private static DataService dataService;
 
-        SpringApplication.run(SpringbootTest01Application.class,args);
+    @Autowired
+    public void setDataService(DataService dataService){
+        SpringbootTest01Application.dataService=dataService;
     }
-//    private static final Logger LOGGER = LoggerFactory.getLogger(SpringbootTest01Application.class);
+
+
+
+    private static final Logger log = LoggerFactory.getLogger(SpringbootTest01Application.class);
+
+    public static void main(String[] args) {
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringbootTest01Application.class, args);
+        SpringbootTest01Application.dataService.JdbcService01();
+    }
+
+
+//    @Override
+//    public void run(String... args) throws Exception {
+//        log.info("Creating tables");
 //
-//    @Bean
-//    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
-//                                            MessageListenerAdapter listenerAdapter) {
+//        jdbcTemplate.execute("DROP TABLE customers IF EXISTS");
+//        jdbcTemplate.execute("CREATE TABLE customers(" +
+//                "id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))");
 //
-//        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-//        container.setConnectionFactory(connectionFactory);
-//        container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+//        // Split up the array of whole names into an array of first/last names
+//        List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream()
+//                .map(name -> name.split(" "))
+//                .collect(Collectors.toList());
 //
-//        return container;
-//    }
+//        // Use a Java 8 stream to print out each tuple of the list
+//        splitUpNames.forEach(name -> log.info(String.format("Inserting customer record for %s %s", name[0], name[1])));
 //
-//    @Bean
-//    MessageListenerAdapter listenerAdapter(Receiver receiver) {
-//        return new MessageListenerAdapter(receiver, "receiveMessage");
-//    }
+//        // Uses JdbcTemplate's batchUpdate operation to bulk load data
+//        jdbcTemplate.batchUpdate("INSERT INTO customers(first_name, last_name) VALUES (?,?)", splitUpNames);
 //
-//    @Bean
-//    Receiver receiver() {
-//        return new Receiver();
-//    }
-//
-//    @Bean
-//    StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
-//        return new StringRedisTemplate(connectionFactory);
-//    }
-//
-//    public static void main(String[] args) throws InterruptedException {
-//
-//        ApplicationContext ctx = SpringApplication.run(SpringbootTest01Application.class, args);
-//
-//        StringRedisTemplate template = ctx.getBean(StringRedisTemplate.class);
-//        Receiver receiver = ctx.getBean(Receiver.class);
-//
-//        while (receiver.getCount() == 0) {
-//
-//            LOGGER.info("Sending message...");
-//            template.convertAndSend("chat", "Hello from Redis!");
-//            Thread.sleep(500L);
-//        }
-//
-//        System.exit(0);
+//        log.info("Querying for customer records where first_name = 'Josh':");
+//        jdbcTemplate.query(
+//                "SELECT id, first_name, last_name FROM customers WHERE first_name = ?", new Object[] { "Josh" },
+//                (rs, rowNum) -> new Customer(rs.getLong("id"), rs.getString("first_name"), rs.getString("last_name"))
+//        ).forEach(customer -> log.info(customer.toString()));
 //    }
 }

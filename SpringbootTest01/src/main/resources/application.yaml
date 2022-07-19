@@ -4,4 +4,9 @@ actor:
   lastName: Saber
   lastUpdate: 2022-03-10T12:20:00
 
-
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/sakila?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    password: Unevensea856
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
