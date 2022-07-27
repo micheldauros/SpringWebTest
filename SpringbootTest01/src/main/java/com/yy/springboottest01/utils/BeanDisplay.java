@@ -15,7 +15,7 @@ public class BeanDisplay implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if(beanName.toLowerCase(Locale.ROOT).indexOf("jdbc")!=-1)
+        if(beanName.toLowerCase(Locale.ROOT).indexOf("model")!=-1)
             System.out.println(beanName);
         return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
     }
