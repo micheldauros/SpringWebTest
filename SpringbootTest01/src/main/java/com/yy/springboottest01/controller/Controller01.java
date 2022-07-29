@@ -30,6 +30,7 @@ public class Controller01 {
     @RequestMapping("/test")
     public String test(Model model){
         model.addAttribute("msg","hello-world");
+
         return "test";
     }
 }

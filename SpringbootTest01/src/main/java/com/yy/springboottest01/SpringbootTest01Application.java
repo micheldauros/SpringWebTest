@@ -3,20 +3,51 @@ package com.yy.springboottest01;
 import com.yy.springboottest01.pojo.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@ServletComponentScan
 @EnableScheduling
 @SpringBootApplication
 public class SpringbootTest01Application implements CommandLineRunner {
+    @Autowired
+    private AuthenticationConfiguration authenticationConfiguration;
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception{
+        AuthenticationManager authenticationManager=authenticationConfiguration.getAuthenticationManager();
+        return authenticationManager;
+    }
+    @Bean
+    public
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity httpSecurity)throws Exception{
+        return httpSecurity.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("level1/**").hasRole("vip1")
+                .antMatchers("level2/**").hasRole("vip2")
+                .antMatchers("level3/**").hasRole("vip3")
+                .and().addFilterBefore()
 
+
+    }
     private static final Logger log = LoggerFactory.getLogger(SpringbootTest01Application.class);
 
     public SpringbootTest01Application(JdbcTemplate jdbcTemplate) {

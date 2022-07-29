@@ -1,8 +1,13 @@
 package com.yy.springboottest01.controller;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RouterController {
@@ -14,8 +19,22 @@ public class RouterController {
     public String toLogin(){
         return  "views/login";
     }
-    @RequestMapping("/level{level}/{id}")
-    public String level(@PathVariable("level") int level,@PathVariable("id") int id){
-        return "views/level"+level+"/"+id;
+
+    @RequestMapping("/success")
+    public String success(){
+        return "views/success";
+    }
+    @RequestMapping("/{level}/{id}")
+    public String level(@PathVariable("level") String level,@PathVariable("id") int id){
+        return "views/"+level+"/"+id;
+    }
+    @RequestMapping("/logincheck")
+    public String loginCheck(@RequestParam("username") String userName, @RequestParam("password") String password, HttpServletRequest request){
+        if (userName.equals("张三")&&password.equals("123456")){
+            request.getSession().setAttribute("user","张三");
+            return "redirect:/success";
+        }
+        else
+            return "views/error";
     }
 }
