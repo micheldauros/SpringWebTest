@@ -6,7 +6,8 @@ actor:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/mybatis_test?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    url: jdbc:mysql://localhost:3306/mybatis_test?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
     password: Unevensea856
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+
