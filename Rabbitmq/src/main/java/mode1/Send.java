@@ -19,6 +19,8 @@ public class Send {
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            channel.exchangeBind();
+
             String message = "Hello World!";
             channel.basicPublish("", QUEUE_NAME, null, message.getBytes( StandardCharsets.UTF_8));
             System.out.println(" [x] Sent '" + message + "'");
