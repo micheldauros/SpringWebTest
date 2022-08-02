@@ -4,3 +4,10 @@
 #    password: Unevensea856
 #    url: jdbc:mysql://localhost:3306/sakila?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
 #    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#spring:
+#  redis:
+#    database: 0
+#    host: 172.18.64.119
+#    password: Unevensea856
+#    timeout: 30000
