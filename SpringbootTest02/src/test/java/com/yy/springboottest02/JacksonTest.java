@@ -29,7 +29,7 @@ public class JacksonTest {
 
 
         om.registerModule(timeModule);
-        String s = om.writeraw(user1);
+        String s = om.writeValueAsString(user1);
         System.out.println(s);
         String objectString="{\"name\":\"Tom\",\"age\":10,\"lastUpdate\":\"2022-08-08T17:57:54.093\",\"arrivalDates\":[\"2001-12-22\",\"2021-01-02\"]}";
         System.out.println(om.readValue(objectString, User1.class));

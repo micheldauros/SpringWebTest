@@ -1,10 +1,17 @@
 package com.yy.springboottest02;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yy.springboottest02.pojo.User1;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 public class JedisTest {
     @Test
     public void test01(){
@@ -43,4 +50,5 @@ public class JedisTest {
 
 
     }
+
 }
