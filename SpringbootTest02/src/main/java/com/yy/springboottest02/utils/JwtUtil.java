@@ -3,6 +3,7 @@ package com.yy.springboottest02.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import io.jsonwebtoken.*;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -16,12 +17,11 @@ public class JwtUtil {
     private static final long EXPIRE=7*60*60*24;
 
     public static String getJwtToken(String id){
-        String  token= Jwts.builder()
+        return Jwts.builder()
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
                 .claim("id",id)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
-        return token;
 
     }
 
@@ -36,12 +36,12 @@ public class JwtUtil {
         return true;
     }
 
-    public static boolean checkToken(HttpServletRequest request) {
+    public static boolean checkToken(@NonNull HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
         return checkToken(jwtToken);
     }
 
-    public static String getUserIdByJwtToken(HttpServletRequest request) {
+    public static String getUserIdByJwtToken(@NonNull HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
         if(StringUtils.isEmpty(jwtToken)) return "";
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
