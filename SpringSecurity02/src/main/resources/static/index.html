@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="./lib/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    function login(){
+        if (!($("#password").val() || $("#username").val())) {
+            alert("请输入信息");
+            return false;
+        }
+        $.post("/common/login",
+            {
+                "username": $("#username").val(),
+                "password": $("#password").val()
+            },
+            function (response) {
+                if (response) {
+                    location.href = "/main.html";
+                } else {
+                    alert("登录信息错误");
+                    return false;
+                }
+            })
+    }
+</script>
+<p>Username: <input type="text" name="username" id="username"/></p>
+<p>Password: <input type="password" name="password" id="password"/></p>
+<button onclick="login()">登陆</button>
+
+</body>
+</html>
