@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="./lib/jquery-3.6.0.js"></script>
+<script>
+    function querySalary(){
+        $.get("/salary/query",function (response){
+            alert(response);
+        })
+    }
+    function queryMobile(){
+        $.get("/mobile/query",function (response){
+            alert(response);
+        })
+    }
+    function logout(){
+        $.post("/common/logout",function (){
+            location.href="index.html";
+        })
+    }
+</script>
+
+<button onclick="querySalary()">Salary</button>
+<button onclick="queryMobile()">Mobile</button>
+<button onclick="logout()">Logout</button>
+
+</body>
+</html>

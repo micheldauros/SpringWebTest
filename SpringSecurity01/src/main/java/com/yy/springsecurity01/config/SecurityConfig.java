@@ -6,13 +6,22 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2Res
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.TestingAuthenticationProvider;
+import org.springframework.security.authentication.jaas.JaasAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -21,6 +30,17 @@ public class SecurityConfig {
 //    AuthenticationManager authenticationManager(){
 //        return authentication -> {};
 //    }
+
+    @Resource
+    private AuthenticationConfiguration authenticationConfiguration;
+
+    @Bean
+    AuthenticationManager authenticationManager(){
+        List<AuthenticationProvider> list=new ArrayList<>();
+        list.add(new JaasAuthenticationProvider());
+        list.add(new TestingAuthenticationProvider());
+        return new ProviderManager(list);
+    }
     @Bean
     UserDetailsService userDetailsService() {
         return username -> {
@@ -36,16 +56,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http,AuthenticationManager authenticationManager) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .permitAll()
                 .and()
-                .csrf().disable();
-        AuthenticationManagerBuilder sharedObject = http.getSharedObject(AuthenticationManagerBuilder.class);
-        AuthenticationManager authenticationManager =sharedObject.build();
+                .csrf().disable()
+                .authenticationManager(authenticationManager)
+                .securityContext()
+
         return http.build();
     }
 
