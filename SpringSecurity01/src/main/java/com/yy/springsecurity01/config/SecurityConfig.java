@@ -71,7 +71,7 @@ public class SecurityConfig {
          return authenticationManagerBuilder
                  .authenticationProvider(new JaasAuthenticationProvider())
                  .authenticationProvider(new TestingAuthenticationProvider())
-                 .authenticationProvider(new JwtAuthenticationProvider(NimbusJwtDecoder.withSecretKey("abcdabcdabcdabcd").build()))
+//                 .authenticationProvider(new JwtAuthenticationProvider(NimbusJwtDecoder.withSecretKey("abcdabcdabcdabcd").build()))
                  .build();
     }
 
