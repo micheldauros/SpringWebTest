@@ -2,12 +2,10 @@ package com.yy.springsecurity01.config;
 
 import com.yy.springsecurity01.pojo.User;
 import com.yy.springsecurity01.pojo.UserDetailsImpl;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.TestingAuthenticationProvider;
 import org.springframework.security.authentication.jaas.JaasAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,11 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -31,16 +27,31 @@ public class SecurityConfig {
 //        return authentication -> {};
 //    }
 
-    @Resource
-    private AuthenticationConfiguration authenticationConfiguration;
+//    @Resource
+//    private AuthenticationConfiguration authenticationConfiguration;
 
-    @Bean
-    AuthenticationManager authenticationManager(){
-        List<AuthenticationProvider> list=new ArrayList<>();
-        list.add(new JaasAuthenticationProvider());
-        list.add(new TestingAuthenticationProvider());
-        return new ProviderManager(list);
-    }
+    //    @Bean
+//    public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService)
+//            throws Exception {
+//        Map<String ,Object> headers=new HashMap<>();
+//        headers.put("alg","HS265");
+//        headers.put("typ","JWT");
+//        Map<String ,Object> claims=new HashMap<>();
+//        claims.put("username","Terry");
+//        claims.put("id",1233);
+//        Jwt a = new Jwt("abcdefg", null, null, headers, claims);
+//
+//
+//
+//
+//
+//        return http.getSharedObject(AuthenticationManagerBuilder.class)
+//                .authenticationProvider(new JwtAuthenticationProvider(JwtDecoders.fromIssuerLocation())
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder)
+//                .and()
+//                .build();
+//    }
     @Bean
     UserDetailsService userDetailsService() {
         return username -> {
@@ -56,7 +67,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http,AuthenticationManager authenticationManager) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+         return authenticationManagerBuilder
+                 .authenticationProvider(new JaasAuthenticationProvider())
+                 .authenticationProvider(new TestingAuthenticationProvider())
+                 .authenticationProvider(new JwtAuthenticationProvider(NimbusJwtDecoder.withSecretKey("abcdabcdabcdabcd").build()))
+                 .build();
+    }
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
@@ -65,7 +85,7 @@ public class SecurityConfig {
                 .and()
                 .csrf().disable()
                 .authenticationManager(authenticationManager)
-                .securityContext()
+                .securityContext();
 
         return http.build();
     }
