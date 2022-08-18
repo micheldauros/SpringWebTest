@@ -1,2 +1,12 @@
 server:
   port: 8082
+spring:
+  application:
+    name: stock
+  cloud:
+    nacos:
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public
+      server-addr: 172.18.64.119:8848
