@@ -43,7 +43,7 @@ class SpringbootTest02ApplicationTests <T> {
         user1.setLastUpdate(LocalDateTime.now());
         user1.setArrivalDates(new LocalDate[]{LocalDate.of(2001,12,22),LocalDate.of(2021,1,2)});
         ValueOperations<String, Object> op = redisTemplate.opsForValue();
-//        op.set("tom",user1);
+        op.set("tom",user1);
         Object tom = op.get("tom");
         System.out.println(redisTemplate.keys("*"));
         User1 tom1 = redisUtil.getCacheObject("tom");

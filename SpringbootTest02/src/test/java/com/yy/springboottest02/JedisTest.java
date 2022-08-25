@@ -16,7 +16,7 @@ public class JedisTest {
     @Test
     public void test01(){
         Jedis jedis = new Jedis("172.18.64.119",6379);
-        jedis.auth("Unevensea856");
+        jedis.auth("123456");
         System.out.println(jedis.ping());
         System.out.println(jedis.exists("username"));
         jedis.set("username","张三");

@@ -1,8 +1,6 @@
 package com.yy.miscellaneous.timer;
 
 
-import org.aspectj.lang.annotation.Aspect;
-
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

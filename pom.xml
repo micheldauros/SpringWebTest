@@ -12,6 +12,7 @@
         <module>SpringMVCTest01</module>
         <module>StaticWebTest</module>
         <module>SpringMybatis</module>
+        <module>SpringbootTest03</module>
     </modules>
     <dependencies>
         <dependency>

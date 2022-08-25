@@ -11,6 +11,10 @@ public class HelloController {
     public String hello() throws InterruptedException {
         Thread.sleep(1000);
         System.out.println("hello timer");
+        String nacoss="haha";
+        System.out.println(nacoss);
         return "hello timer";
+
+
     }
 }

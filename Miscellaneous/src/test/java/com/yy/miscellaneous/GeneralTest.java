@@ -7,7 +7,7 @@ import org.springframework.util.DigestUtils;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-public class GerenalTest {
+public class GeneralTest {
     @Test
     public void stopWatch01() {
         Stopwatch stopwatch = Stopwatch.createStarted();
@@ -16,10 +16,10 @@ public class GerenalTest {
         System.out.println(stopwatch.elapsed(TimeUnit.MICROSECONDS));
     }
     @Test
-    public void digtest01(){
+    public void digest01(){
         for (int i = 0; i < 10; i++) {
-            byte[] b = DigestUtils.md5Digest("hello word".getBytes());
-            byte[] d = DigestUtils.md5Digest("hello word".getBytes());
+            byte[] b = DigestUtils.md5Digest("hello world".getBytes());
+            byte[] d = DigestUtils.md5Digest("hello world".getBytes());
 
             String c=Arrays.toString(b);
             System.out.println(b);//每次结果都不一样，为什么？
