@@ -27,4 +27,31 @@ public class GeneralTest {
             System.out.println(d);
         }
     }
+
+    @Test
+    public void bitTest(){
+        for (int j = -1; j < 4; j++) {
+            System.out.println((Integer.toBinaryString(j<<29)));
+        }
+
+    }
+
+    @Test
+    public void breakTest(){
+        a:{
+            System.out.println("0");
+            b:{
+                System.out.println("1");
+                c:{
+                    System.out.println("2");
+                    if(1==1)
+                        break a;
+                }
+                System.out.println("3");
+            }
+            System.out.println("4");
+        }
+        System.out.println("5");
+    }
+
 }
