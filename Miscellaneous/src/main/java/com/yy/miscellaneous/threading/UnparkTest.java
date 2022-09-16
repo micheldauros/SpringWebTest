@@ -24,5 +24,21 @@ public class UnparkTest {
 
         LockSupport.unpark(t1);
 
+
+        new Thread(()->{
+            Thread.currentThread().interrupt();
+            System.out.println(Thread.currentThread().isInterrupted());
+            System.out.println(Thread.interrupted());
+            System.out.println(Thread.currentThread().isInterrupted());
+            LockSupport.park();
+            System.out.println(Thread.currentThread().isInterrupted());
+            System.out.println("第一次park");
+            LockSupport.park();
+            System.out.println(Thread.currentThread().isInterrupted());
+
+            System.out.println("第二次park");
+
+        }).start();
+
     }
 }
