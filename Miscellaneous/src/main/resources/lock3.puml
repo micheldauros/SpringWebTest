@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+
+===code1===
+"activity1"
+===code2===
+===code1===
+"activity2"
+===code2===
+
+
+
+@enduml
