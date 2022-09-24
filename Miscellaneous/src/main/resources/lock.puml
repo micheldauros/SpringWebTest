@@ -2,36 +2,57 @@
 'https://plantuml.com/activity-diagram-beta
 
 start
-:tryAcquireShared(int);
+:int tryAcquireShared(int);
 :获得当前state;
-if (独占锁持有数不为0) then (true)
-  if(独占锁持有线不是当前线程) then (true)
-  if (isForward?) then (no)
-    :Process controls;
-    if (continue processing?) then (no)
-      stop
-    endif
-
-    if (isPost?) then (yes)
-      :Page.onPost();
-    else (no)
-      :Page.onGet();
-    endif
-    :Page.onRender();
-  endif
-else (false)
-endif
-
-if (do redirect?) then (yes)
-  :redirect process;
-else
-  if (do forward?) then (yes)
-    :Forward request;
-  else (no)
-    :Render page template;
-  endif
-endif
-
+fork
+    : 独占锁持有者计数不为0;
+fork again
+    : 独占锁持有线程不当前线程;
+end fork{AND}
+if(AND)then(yes)
+    :-1;
 stop
+else(no)
+    fork
+        :当前线程排在第一;
+    fork again
+        :共享锁计数器小于最大值;
+    fork again
+        :CAS更新共享锁计数器成功;
+    end fork{AND}
+    if(AND)then(yes)
+    if(共享锁CAS前计数器)equals(0)then
+        :firstReader更新为当前线程，
+        firstReaderHoldCount改为0;
+    else(不是0)
+        if(当前线程是firstReader)then(yes)
+            :firstReaderHoldCount加1;
+        else(no)
+        fork
+            :cachedHoldCounter不存在;
+        fork again
+            :当前线程不是cachedHoldCounter中的线程;
+        end fork{OR}
+            if(OR)then(yes)
+                :cachedHoldCounter更新为readHolds中的计数器;
+            else(no)
+                if(cachedHoldCounter中的计数器)equals(0)then
+                    :readHolds的计数器设置为cachedHoldCounter;
+                else(不是0)
+                endif
+            endif
+            :cachedHoldCounter中的计数器加1;
+        endif
+    endif
+    :1;
+    stop
+    else(no)
+        :fullTryAcquireShared(Thread);
+    stop
+endif
+
+
+
+
 
 @enduml

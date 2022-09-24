@@ -1,14 +1,18 @@
 @startuml
-'https://plantuml.com/activity-diagram-beta
+'define A
+!define B
 
+!ifdef A
+!define AorB
+!else
+!ifdef B
+!define AorB
+!endif
 
-===code1===
-"activity1"
-===code2===
-===code1===
-"activity2"
-===code2===
+!endif
+!ifdef AorB
+title A or B
+!endif
 
-
-
+Bob-> Alice
 @enduml
