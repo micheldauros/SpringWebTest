@@ -1,0 +1,39 @@
+@startuml ReentrantReadWriteLock
+'https://plantuml.com/component-diagram
+class ReentrantReadWriteLock{
+~final Sync:sync
+-ReadLock:readerLock
+-WriteLock:writerLock
++ReadLock readLock()
++WriteLock writeLock()
+}
+class Sync extends AbstractQueuedSynchronizer{
+#int tryAcquireShared(int unused)
+}
+class ReadLock {
+-final Sync:sync
++void lock()
+}
+abstract class AbstractQueuedSynchronizer{
++ final void acquireShared(int arg)
+# int tryAcquireShared(int arg)
+- void doAcquireShared(int arg)
+}
+class WriteLock {
+-final Sync:sync
+}
+class FairSync extends Sync{
+}
+class NonFairSync extends Sync{
+}
+ReentrantReadWriteLock +- Sync
+ReentrantReadWriteLock +-- ReadLock
+ReentrantReadWriteLock +-- WriteLock
+ReentrantReadWriteLock +-- FairSync
+ReentrantReadWriteLock +-- NonFairSync
+Sync::tryAcquireShared <-- AbstractQueuedSynchronizer::tryAcquireShared:override
+ReadLock::lock --> AbstractQueuedSynchronizer::acquireShared
+ReentrantReadWriteLock::sync  <--> ReadLock::sync
+ReentrantReadWriteLock::sync  <--> WriteLock::sync
+
+@enduml
