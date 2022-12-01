@@ -8,7 +8,7 @@ fork
 
     : 独占锁持有者计数不为0;
 fork again
-    : 独占锁持有线程不当前线程;
+    : 独占锁持有线程不是当前线程;
 end fork{AND}
 if(AND)then(yes)
     :-1;

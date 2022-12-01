@@ -13,6 +13,7 @@
         <module>StaticWebTest</module>
         <module>SpringMybatis</module>
         <module>SpringbootTest03</module>
+        <module>SpringSecurity04</module>
     </modules>
     <dependencies>
         <dependency>

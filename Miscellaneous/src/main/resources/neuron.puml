@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+(en1)-->(en2)
+
+(en2)-->(in2)
+(in2)-->(en1)
+(in1)-->(en2)
+(en1)-->(in1)
+@enduml
